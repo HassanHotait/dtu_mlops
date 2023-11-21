@@ -17,9 +17,20 @@ more data that you feed them, we are seeing models today that are being trained 
 
 Because this is a important concept there exist a couple of frameworks that have specialized in versioning data such as
 [dvc](https://dvc.org/), [DAGsHub](https://dagshub.com/), [Hub](https://www.activeloop.ai/),
-[Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/). We are
-here going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools for automatizing
-machine learning, which we are going to focus on later.
+[Modelstore](https://modelstore.readthedocs.io/en/latest/) and [ModelDB](https://github.com/VertaAI/modeldb/).
+Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
+or in general storing any large *artifacts* files we instead store a pointer to these large flies. We then version
+control the point instead of the artifact.
+
+<figure markdown>
+![Image](../figures/git_artifact.png){ width="700" }
+<figcaption>
+<a href="https://madewithml.com/courses/mlops/versioning/"> Image credit </a>
+</figcaption>
+</figure>
+
+We are in this course going to use `dvc` provided by [iterative.ai](https://iterative.ai/) as they also provide tools
+for automatizing machine learning, which we are going to focus on later.
 
 ## DVC: What is it?
 
@@ -174,6 +185,28 @@ it contains excellent tutorials.
     example if we always stored out best performing model in a file called `best_model.ckpt` then we can use `dvc` to
     version control it, store it online and make it easy for other to download. Feel free to experiment with this using
     your own model checkpoints.
+
+## 🧠 Knowledge check
+
+1. How do you know that a repository is using dvc?
+
+    ??? success "Solution"
+
+        Similar to a git repository having a `.git` directory, a repository using dvc needs to have a `.dvc` folder.
+        Alternatively you can you the `dvc status` command.
+
+2. Assume you just added a folder called `data/` that you want to track with `dvc`. What is the sequence of 5 commands
+    to successful version control the folder? (assuming you already setup a remote)
+
+    ??? success "Solution"
+
+        ```bash
+        dvc add data/
+        git add .
+        git commit -m "added raw data"
+        git push
+        dvc push
+        ```
 
 That's all for today. With the combined power of `git` and `dvc` we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that `dvc`
