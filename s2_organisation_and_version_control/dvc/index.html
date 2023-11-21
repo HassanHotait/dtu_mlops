@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../figures/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.10">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fad675c6.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
@@ -615,14 +615,27 @@
       
         <li class="md-nav__item">
   <a href="#dvc-what-is-it" class="md-nav__link">
-    DVC: What is it?
+    <span class="md-ellipsis">
+      DVC: What is it?
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
 </li>
@@ -1750,14 +1763,27 @@
       
         <li class="md-nav__item">
   <a href="#dvc-what-is-it" class="md-nav__link">
-    DVC: What is it?
+    <span class="md-ellipsis">
+      DVC: What is it?
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#exercises" class="md-nav__link">
-    ❔ Exercises
+    <span class="md-ellipsis">
+      ❔ Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Knowledge check
+    </span>
   </a>
   
 </li>
@@ -1795,9 +1821,18 @@ other hand, the size of data can be drastically bigger. As most machine learning
 more data that you feed them, we are seeing models today that are being trained on petabytes of data (1.000.000 GB).</p>
 <p>Because this is a important concept there exist a couple of frameworks that have specialized in versioning data such as
 <a href="https://dvc.org/">dvc</a>, <a href="https://dagshub.com/">DAGsHub</a>, <a href="https://www.activeloop.ai/">Hub</a>,
-<a href="https://modelstore.readthedocs.io/en/latest/">Modelstore</a> and <a href="https://github.com/VertaAI/modeldb/">ModelDB</a>. We are
-here going to use <code>dvc</code> provided by <a href="https://iterative.ai/">iterative.ai</a> as they also provide tools for automatizing
-machine learning, which we are going to focus on later.</p>
+<a href="https://modelstore.readthedocs.io/en/latest/">Modelstore</a> and <a href="https://github.com/VertaAI/modeldb/">ModelDB</a>.
+Regardless of what framework, they all implement somewhat the same concept: instead of storing the actual data files
+or in general storing any large <em>artifacts</em> files we instead store a pointer to these large flies. We then version
+control the point instead of the artifact.</p>
+<figure>
+<p><a class="glightbox" href="../../figures/git_artifact.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="../../figures/git_artifact.png" width="700" /></a></p>
+<figcaption>
+<a href="https://madewithml.com/courses/mlops/versioning/"> Image credit </a>
+</figcaption>
+</figure>
+<p>We are in this course going to use <code>dvc</code> provided by <a href="https://iterative.ai/">iterative.ai</a> as they also provide tools
+for automatizing machine learning, which we are going to focus on later.</p>
 <h2 id="dvc-what-is-it">DVC: What is it?</h2>
 <p>DVC (Data Version Control) is simply an extension of <code>git</code> to not only take versioning data but also models and
 experiments in general. But how does it deal with these large data files? Essentially, <code>dvc</code> will just keep track of a
@@ -1941,6 +1976,30 @@ than your standard code) to make sure that the two commands indeed downloads bot
     your own model checkpoints.</p>
 </li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check</h2>
+<ol>
+<li>
+<p>How do you know that a repository is using dvc?</p>
+<details class="success">
+<summary>Solution</summary>
+<p>Similar to a git repository having a <code>.git</code> directory, a repository using dvc needs to have a <code>.dvc</code> folder.
+Alternatively you can you the <code>dvc status</code> command.</p>
+</details>
+</li>
+<li>
+<p>Assume you just added a folder called <code>data/</code> that you want to track with <code>dvc</code>. What is the sequence of 5 commands
+    to successful version control the folder? (assuming you already setup a remote)</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dvc<span class="w"> </span>add<span class="w"> </span>data/
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added raw data&quot;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>git<span class="w"> </span>push
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>dvc<span class="w"> </span>push
+</span></code></pre></div>
+</details>
+</li>
+</ol>
 <p>That's all for today. With the combined power of <code>git</code> and <code>dvc</code> we should be able to version control everything in
 our development pipeline such that no changes are lost (assuming we commit regularly). It should be noted that <code>dvc</code>
 offers such more than just data version control, so if you want to deep dive into <code>dvc</code> we recommend their
@@ -1953,7 +2012,7 @@ later for a more permanent (and large scale) storage solution.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2023</span>
       
         <br>
         Created:
@@ -2077,7 +2136,7 @@ later for a more permanent (and large scale) storage solution.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.indexes", "content.code.copy", "content.code.annotate", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
