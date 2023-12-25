@@ -10,6 +10,7 @@ from data import mnist
 import matplotlib.pyplot as plt
 import numpy as np
 
+## TODO Ask How to import this function from helper (Maybe use add to path?)
 def view_classify(img, ps, version="MNIST"):
     """Function for viewing an image and it's predicted classes."""
     ps = ps.data.numpy().squeeze()
