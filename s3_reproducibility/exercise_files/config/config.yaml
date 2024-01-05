@@ -1,0 +1,11 @@
+hyperparameters:
+  seed : 55
+  batch_size : 32
+  epochs : 10
+  lr : 1e-3
+network:
+  x_dim : 784
+  hidden_dim : 400
+  latent_dim : 20
+dataset:
+  path : "~/datasets"
