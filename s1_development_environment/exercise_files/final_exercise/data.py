@@ -3,6 +3,7 @@ import os
 
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
+from torchvision.transforms import v2
 
 class CorruptMNISTDataset(Dataset):
     """Corrupt MNIST dataset."""
@@ -38,9 +39,13 @@ class CorruptMNISTDataset(Dataset):
 
 
         if transform != None:
-            ## TODO Check ISSUE
-            ToPIL = transforms.ToPILImage()
-            self.images = transform(ToPIL(self.images))
+            # self.images = self.images.view((1,28,28,30000))
+            # print("Images Tensor Shape: ",self.images.shape)
+            self.images = transform(self.images)
+
+        print("Target Shape: ",self.target.shape)
+        print("Target: ",self.target)
+        print("Target dtype: ",self.target.dtype)
 
     def __len__(self):
         return len(self.images)
@@ -56,13 +61,16 @@ def mnist():
 
     dataPath = "C:/Users/Hasan/OneDrive/Desktop/Projects/dtu_mlops/data/corruptmnist"
 
-    # Define a transform to normalize the data
-    transform = transforms.Compose([transforms.ToTensor(),
-                                    transforms.Normalize((0.5,), (0.5,)),
+    # # Define a transform to normalize the data
+    transform = transforms.Compose([transforms.Normalize((0.5,), (0.5,)),
                                 ])
     
-    trainSet = CorruptMNISTDataset(dirPath = dataPath, train = True, transform=None)
-    testSet = CorruptMNISTDataset(dirPath = dataPath, train = False, transform=None)
+    # transform = v2.Compose([v2.Normalize((0.5,), (0.5,)),
+    #                             ])
+    
+    
+    trainSet = CorruptMNISTDataset(dirPath = dataPath, train = True, transform=transform)
+    testSet = CorruptMNISTDataset(dirPath = dataPath, train = False, transform=transform)
 
     print("Length of TrainSet: ", len(trainSet))
     print("Length of TestSet: ", len(testSet))
@@ -72,6 +80,8 @@ def mnist():
 
     
     return train, test
+
+mnist()
 
 
 
